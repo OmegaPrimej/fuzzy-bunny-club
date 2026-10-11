@@ -10,26 +10,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-          
+
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-        
-      - name: Generate Gradle Wrapper
+
+      - name: Install Gradle
         run: |
-          gradle wrapper --gradle-version 8.4
-          
+          sudo apt-get update
+          sudo apt-get install -y gradle
+          gradle --version
+
+      - name: Generate Wrapper
+        run: gradle wrapper --gradle-version 8.4
+
       - name: Make gradlew executable
         run: chmod +x gradlew
-        
+
       - name: Build APK
         run: ./gradlew assembleDebug --stacktrace
-        
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
