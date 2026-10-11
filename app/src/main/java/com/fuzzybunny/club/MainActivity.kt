@@ -37,11 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         // 1. Neon skull looping BG video
         val bgVideo = findViewById<VideoView>(R.id.bgVideo)
-        try {
-            bgVideo.setVideoURI(Uri.parse("android.resource://$packageName/${R.raw.neon_skull_bg}"))
-            bgVideo.setOnPreparedListener { it.isLooping = true }
-            bgVideo.start()
-        } catch (e: Exception) {
+        
             // If no video yet, show black with neon text
             liveStatus.text = "👻 Add neon_skull_bg.mp4 to res/raw/"
         }
